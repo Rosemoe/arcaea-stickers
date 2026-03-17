@@ -46,6 +46,17 @@
   margin-bottom: 1rem;
 }
 
+.settings > .setting-switch {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.settings > .setting-switch .MuiSwitch-root {
+  margin-left: auto;
+}
+
 .text {
   margin-bottom: 1rem;
 }

@@ -71,6 +71,7 @@ function App() {
   const [fontSize, setFontSize] = useState(characters[character].defaultText.s);
   const [spaceSize, setSpaceSize] = useState(50);
   const [rotate, setRotate] = useState(characters[character].defaultText.r);
+  const [transparentBackground, setTransparentBackground] = useState(false);
   const [curve, setCurve] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const img = new Image();
@@ -95,6 +96,12 @@ function App() {
   const draw = (ctx) => {
     ctx.canvas.width = 296;
     ctx.canvas.height = 256;
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    if (!transparentBackground) {
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
 
     if (loaded && document.fonts.check("12px YurukaStd")) {
       const hRatio = ctx.canvas.width / img.width;
@@ -102,7 +109,6 @@ function App() {
       const ratio = Math.min(hRatio, vRatio);
       const centerShiftX = (ctx.canvas.width - img.width * ratio) / 2;
       const centerShiftY = (ctx.canvas.height - img.height * ratio) / 2;
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(
         img,
         0,
@@ -293,7 +299,15 @@ function App() {
                 color="secondary"
               />
             </div>
-            <div>
+            <div className="setting-switch">
+              <label>Transparent BG: </label>
+              <Switch
+                checked={transparentBackground}
+                onChange={(e) => setTransparentBackground(e.target.checked)}
+                color="secondary"
+              />
+            </div>
+            <div className="setting-switch">
               <label>Curve (Beta): </label>
               <Switch
                 checked={curve}
