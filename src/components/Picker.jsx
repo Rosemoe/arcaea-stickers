@@ -7,8 +7,10 @@ import {
 } from "@mui/material";
 import { useState, useMemo } from "react";
 import characters from "../characters.json";
+import { useI18n } from "../i18n";
 
 export default function Picker({ setCharacter }) {
+  const { t } = useI18n();
   const [anchorEl, setAnchorEl] = useState(null);
   const [search, setSearch] = useState("");
 
@@ -71,7 +73,7 @@ export default function Picker({ setCharacter }) {
         color="secondary"
         onClick={handleClick}
       >
-        Pick character
+        {t("picker.pickCharacter")}
       </Button>
       <Popover
         id={id}
@@ -86,7 +88,7 @@ export default function Picker({ setCharacter }) {
       >
         <div className="picker-search">
           <TextField
-            label="Search character"
+            label={t("picker.searchCharacter")}
             size="small"
             color="secondary"
             value={search}

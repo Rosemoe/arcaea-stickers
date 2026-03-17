@@ -10,8 +10,11 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { useI18n } from "../i18n";
 
 export default function Info({ open, handleClose, config }) {
+  const { locale, t } = useI18n();
+
   return (
     <div>
       <Dialog
@@ -20,11 +23,11 @@ export default function Info({ open, handleClose, config }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">About</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{t("info.title")}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <Typography variant="h6" component="h3">
-              This tool made possible by:
+              {t("info.credits")}
             </Typography>
             <List>
               <ListItem
@@ -41,7 +44,7 @@ export default function Info({ open, handleClose, config }) {
                 </ListItemAvatar>
                 <ListItemText
                   primary="Rosemoe"
-                  secondary="for the Arcaea variant of sticker maker"
+                  secondary={t("info.contributorRosemoe")}
                 />
               </ListItem>
               <ListItem
@@ -59,7 +62,7 @@ export default function Info({ open, handleClose, config }) {
                 </ListItemAvatar>
                 <ListItemText
                   primary="Xestarrrr"
-                  secondary="for the Arcaea sticker images"
+                  secondary={t("info.contributorXestarrrr")}
                 />
               </ListItem>
               <ListItem
@@ -77,12 +80,12 @@ export default function Info({ open, handleClose, config }) {
                 </ListItemAvatar>
                 <ListItemText
                   primary="Ayaka"
-                  secondary="for the original sticker maker"
+                  secondary={t("info.contributorAyaka")}
                 />
               </ListItem>
             </List>
             <Typography variant="h6" component="h3">
-              You can find the source code or contribute here:
+              {t("info.sourceCode")}
             </Typography>
             <List>
               <ListItem
@@ -98,21 +101,23 @@ export default function Info({ open, handleClose, config }) {
                     src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                   />
                 </ListItemAvatar>
-                <ListItemText primary="GitHub" secondary="Source Code" />
+                <ListItemText primary="GitHub" secondary={t("info.sourceCodeLabel")} />
               </ListItem>
             </List>
             <Typography variant="h6" component="h3">
-              Total stickers made using the app:
+              {t("info.totalStickersMade")}
               <br />
-              {config?.global
-                ? config?.global.toLocaleString() + " Sticker"
-                : "not available"}
+              {config?.global != null
+                ? t("info.totalStickersValue", {
+                    count: config.global.toLocaleString(locale),
+                  })
+                : t("app.notAvailable")}
             </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary" autoFocus>
-            Close
+            {t("info.close")}
           </Button>
         </DialogActions>
       </Dialog>

@@ -13,7 +13,14 @@
 .canvas {
   height: 256px;
   width: 296px;
+}
+
+.canvas canvas {
+  display: block;
+  width: 296px;
+  height: 256px;
   border: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
 .vertical {
@@ -35,7 +42,7 @@
 
 .settings {
   color: black;
-  font-family: "YurukaStd";
+  font-family: "YurukaStd", "SSFangTangTi";
   margin: 1.5rem 0 1.5rem 0;
 }
 
@@ -95,7 +102,7 @@
 
 .footer {
   margin-top: 2rem;
-  font-family: "YurukaStd";
+  font-family: "YurukaStd", "SSFangTangTi";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,5 +136,5 @@
   text-align: left;
   color: black;
   font-weight: bold;
-  font-family: YurukaStd;
+  font-family: "YurukaStd", "SSFangTangTi";
 }

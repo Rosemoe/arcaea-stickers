@@ -13,10 +13,12 @@ import Info from "./components/Info";
 import getConfiguration from "./utils/config";
 import log from "./utils/log";
 import { preloadFont } from "./utils/preload";
+import { useI18n } from "./i18n";
 
 const { ClipboardItem } = window;
 
 function App() {
+  const { locale, t } = useI18n();
   const [config, setConfig] = useState(null);
 
   // using this to trigger the useEffect because lazy to think of a better way
@@ -224,7 +226,10 @@ function App() {
     <div className="App">
       <Info open={infoOpen} handleClose={handleClose} config={config} />
       <div className="counter">
-        Total Stickers you made: {config?.total || "Not available"}
+        {t("app.totalStickersMade", {
+          count:
+            config?.total != null ? config.total.toLocaleString(locale) : t("app.notAvailable"),
+        })}
       </div>
       <div className="container">
         <div className="vertical">
@@ -260,7 +265,9 @@ function App() {
           />
           <div className="settings">
             <div>
-              <label>Rotate: </label>
+              <label>
+                <nobr>{t("app.rotate")}: </nobr>
+              </label>
               <Slider
                 value={rotate}
                 onChange={(e, v) => setRotate(v)}
@@ -273,7 +280,7 @@ function App() {
             </div>
             <div>
               <label>
-                <nobr>Font size: </nobr>
+                <nobr>{t("app.fontSize")}: </nobr>
               </label>
               <Slider
                 value={fontSize}
@@ -287,7 +294,7 @@ function App() {
             </div>
             <div>
               <label>
-                <nobr>Spacing: </nobr>
+                <nobr>{t("app.spacing")}: </nobr>
               </label>
               <Slider
                 value={spaceSize}
@@ -300,7 +307,9 @@ function App() {
               />
             </div>
             <div className="setting-switch">
-              <label>Transparent BG: </label>
+              <label>
+                <nobr>{t("app.transparentBackground")}: </nobr>
+              </label>
               <Switch
                 checked={transparentBackground}
                 onChange={(e) => setTransparentBackground(e.target.checked)}
@@ -308,7 +317,9 @@ function App() {
               />
             </div>
             <div className="setting-switch">
-              <label>Curve (Beta): </label>
+              <label>
+                <nobr>{t("app.curveBeta")}: </nobr>
+              </label>
               <Switch
                 checked={curve}
                 onChange={(e) => setCurve(e.target.checked)}
@@ -318,7 +329,7 @@ function App() {
           </div>
           <div className="text">
             <TextField
-              label="Text"
+              label={t("app.text")}
               size="small"
               color="secondary"
               value={text}
@@ -332,16 +343,16 @@ function App() {
           </div>
           <div className="buttons">
             <Button color="secondary" onClick={copy}>
-              copy
+              {t("app.copy")}
             </Button>
             <Button color="secondary" onClick={download}>
-              download
+              {t("app.download")}
             </Button>
           </div>
         </div>
         <div className="footer">
           <Button color="secondary" onClick={handleClickOpen}>
-            About
+            {t("app.about")}
           </Button>
         </div>
       </div>
@@ -349,7 +360,7 @@ function App() {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={openCopySnackbar}
         onClose={handleSnackClose}
-        message="Copied image to clipboard."
+        message={t("app.copiedImage")}
         key="copy"
         autoHideDuration={1500}
       />
