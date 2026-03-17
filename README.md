@@ -4,6 +4,7 @@ Make your own Arcaea stickers!
 - [x] HEH!
 - [x] Download/Copy stickers
 - [x] Global stickers made counter
+- [x] i18n UI
 ## Credicts
 - Original stickers from [Xestarrrr](https://x.com/Xestarrrr)
 - Project Sekai [sticker maker](https://github.com/TheOriginalAyaka/sekai-stickers) by [Akaya](https://github.com/TheOriginalAkaya)
