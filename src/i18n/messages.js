@@ -1,6 +1,6 @@
 export const DEFAULT_LOCALE = "en-US";
 
-export const SUPPORTED_LOCALES = ["en-US", "zh-CN", "zh-TW", "ja-JP"];
+export const SUPPORTED_LOCALES = ["en-US", "zh-CN", "zh-TW", "ja-JP", "ko-KR"];
 
 export const messages = {
   "en-US": {
@@ -129,6 +129,38 @@ export const messages = {
       totalStickersMade: "アプリで作成されたステッカー総数:",
       totalStickersValue: "{count} 枚",
       close: "閉じる",
+    },
+  },
+  "ko-KR": {
+    app: {
+      totalStickersMade: "지금까지 만든 스티커 수: {count}",
+      notAvailable: "사용할 수 없음",
+      rotate: "회전",
+      fontSize: "글자 크기",
+      spacing: "줄 간격",
+      transparentBackground: "투명 배경",
+      curveBeta: "곡선 배치 (Beta)",
+      text: "텍스트",
+      copy: "복사",
+      download: "다운로드",
+      about: "정보",
+      copiedImage: "이미지를 클립보드에 복사했습니다.",
+    },
+    picker: {
+      pickCharacter: "캐릭터 선택",
+      searchCharacter: "캐릭터 검색",
+    },
+    info: {
+      title: "정보",
+      credits: "이 도구 제작에 도움을 준 분들:",
+      contributorRosemoe: "Arcaea 버전 스티커 메이커 제작",
+      contributorXestarrrr: "Arcaea 스티커 이미지 제공",
+      contributorAyaka: "원본 스티커 메이커 제작",
+      sourceCode: "소스 코드 확인 및 기여:",
+      sourceCodeLabel: "소스 코드",
+      totalStickersMade: "앱으로 생성된 전체 스티커 수:",
+      totalStickersValue: "{count}개",
+      close: "닫기",
     },
   },
 };

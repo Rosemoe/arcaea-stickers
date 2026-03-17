@@ -35,6 +35,10 @@ function normalizeLocale(locale) {
     return "ja-JP";
   }
 
+  if (lowerCased.startsWith("ko")) {
+    return "ko-KR";
+  }
+
   if (lowerCased.startsWith("en")) {
     return "en-US";
   }
