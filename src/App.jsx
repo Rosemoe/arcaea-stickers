@@ -1,7 +1,8 @@
 import SSFangTangTi from "./fonts/ShangShouFangTangTi.woff2";
+import YurukaStd from "./fonts/YurukaStd.woff2";
 import "./App.css";
 import Canvas from "./components/Canvas";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import characters from "./characters.json";
 import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
@@ -36,19 +37,29 @@ function App() {
   }, [rand]);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function doPreloadFont() {
-      const controller = new AbortController();
       try {
-        await preloadFont("SSFangTangTi", SSFangTangTi, controller.signal);
+        await Promise.all([
+          preloadFont("YurukaStd", YurukaStd, controller.signal),
+          preloadFont("SSFangTangTi", SSFangTangTi, controller.signal),
+        ]);
+        if (!controller.signal.aborted) {
+          setFontsLoaded(true);
+        }
       } catch (error) {
-        console.error(error);
-      } finally {
-        return () => {
-          controller.abort();
-        };
+        if (error?.name !== "AbortError") {
+          console.error(error);
+        }
       }
     }
+
     doPreloadFont();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const [infoOpen, setInfoOpen] = useState(false);
@@ -76,7 +87,9 @@ function App() {
   const [transparentBackground, setTransparentBackground] = useState(false);
   const [curve, setCurve] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const img = new Image();
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const imgRef = useRef(new Image());
+  const img = imgRef.current;
 
   useEffect(() => {
     setText(characters[character].defaultText.text);
@@ -89,11 +102,16 @@ function App() {
     setLoaded(false);
   }, [character]);
 
-  img.src = "/img/" + characters[character].img;
+  useEffect(() => {
+    img.onload = () => {
+      setLoaded(true);
+    };
+    img.src = "/img/" + characters[character].img;
 
-  img.onload = () => {
-    setLoaded(true);
-  };
+    return () => {
+      img.onload = null;
+    };
+  }, [character, img]);
 
   const draw = (ctx) => {
     ctx.canvas.width = 296;
@@ -105,7 +123,7 @@ function App() {
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     }
 
-    if (loaded && document.fonts.check("12px YurukaStd")) {
+    if (loaded) {
       const hRatio = ctx.canvas.width / img.width;
       const vRatio = ctx.canvas.height / img.height;
       const ratio = Math.min(hRatio, vRatio);
@@ -122,6 +140,11 @@ function App() {
         img.width * ratio,
         img.height * ratio
       );
+
+      if (!fontsLoaded) {
+        return;
+      }
+
       ctx.font = `${fontSize}px YurukaStd, SSFangTangTi`;
       ctx.miterLimit = 2.5;
       ctx.save();
