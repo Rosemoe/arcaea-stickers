@@ -15,6 +15,7 @@ import getConfiguration from "./utils/config";
 import log from "./utils/log";
 import { preloadFont } from "./utils/preload";
 import { useI18n } from "./i18n";
+import { getFullImagePath } from "./utils/images";
 
 const { ClipboardItem } = window;
 
@@ -106,7 +107,7 @@ function App() {
     img.onload = () => {
       setLoaded(true);
     };
-    img.src = "/img/" + characters[character].img;
+    img.src = getFullImagePath(characters[character]);
 
     return () => {
       img.onload = null;

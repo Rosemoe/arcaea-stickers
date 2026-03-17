@@ -8,6 +8,7 @@ import {
 import { useState, useMemo } from "react";
 import characters from "../characters.json";
 import { useI18n } from "../i18n";
+import { getThumbnailPath } from "../utils/images";
 
 export default function Picker({ setCharacter }) {
   const { t } = useI18n();
@@ -53,10 +54,12 @@ export default function Picker({ setCharacter }) {
             }}
           >
             <img
-              src={`/img/${c.img}`}
-              srcSet={`/img/${c.img}`}
+              src={getThumbnailPath(c)}
+              srcSet={getThumbnailPath(c)}
               alt={c.name}
               loading="lazy"
+              width="140"
+              height="140"
             />
           </ImageListItem>
         );
