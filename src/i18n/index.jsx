@@ -1,8 +1,6 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, messages } from "./messages";
 
-const STORAGE_KEY = "locale";
-
 const I18nContext = createContext({
   locale: DEFAULT_LOCALE,
   setLocale: () => {},
@@ -45,11 +43,6 @@ function normalizeLocale(locale) {
 }
 
 function getInitialLocale() {
-  const savedLocale = localStorage.getItem(STORAGE_KEY);
-  if (savedLocale) {
-    return normalizeLocale(savedLocale);
-  }
-
   return normalizeLocale(navigator.language);
 }
 
@@ -65,9 +58,20 @@ export function I18nProvider({ children }) {
   const [locale, setLocale] = useState(getInitialLocale);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, locale);
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setLocale(normalizeLocale(navigator.language));
+    };
+
+    window.addEventListener("languagechange", handleLanguageChange);
+
+    return () => {
+      window.removeEventListener("languagechange", handleLanguageChange);
+    };
+  }, []);
 
   const value = useMemo(
     () => ({
