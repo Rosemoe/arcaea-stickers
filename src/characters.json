@@ -24,10 +24,10 @@
         "fillColor": "#79cfe8",
         "strokeColor": "#0b8eb7",
         "defaultText": {
-            "text": "something",
-            "x": 148,
-            "y": 58,
-            "r": -2,
+            "text": "HEH!",
+            "x": 108,
+            "y": 68,
+            "r": -3,
             "s": 42
         }
     },
@@ -40,7 +40,7 @@
         "fillColor": "#ffe7b5",
         "strokeColor": "#ef7d04",
         "defaultText": {
-            "text": "something",
+            "text": "HEH!",
             "x": 148,
             "y": 58,
             "r": -2,
@@ -118,7 +118,7 @@
         "image": "/img/full/maya.webp",
         "thumb": "/img/thumbs/maya.webp",
         "fillColor": "#f1dece",
-        "strokeColor": "#f4cfb7",
+        "strokeColor": "#d1974f",
         "defaultText": {
             "text": "something",
             "x": 148,
@@ -230,7 +230,7 @@
         "image": "/img/full/kanae.webp",
         "thumb": "/img/thumbs/kanae.webp",
         "fillColor": "#fbd0ad",
-        "strokeColor": "#FFB87F",
+        "strokeColor": "#f39146",
         "defaultText": {
             "text": "something",
             "x": 148,
