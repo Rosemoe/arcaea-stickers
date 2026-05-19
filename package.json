@@ -21,9 +21,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "node scripts/generate-sitemap.js",
+    "postbuild": "bun scripts/prerender.js && bun scripts/generate-sitemap.js",
+    "prerender": "bun scripts/prerender.js",
+    "sitemap": "bun scripts/generate-sitemap.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.0.4",
+    "serve-handler": "^6.1.7"
   },
   "eslintConfig": {
     "extends": [
