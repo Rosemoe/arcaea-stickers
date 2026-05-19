@@ -19,8 +19,9 @@ const darkTheme = createTheme({
   },
 });
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+const container = document.getElementById("root");
+
+const tree = (
   <React.StrictMode>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -30,3 +31,18 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+// `window.__PRERENDERED__` is rewritten to `true` by scripts/prerender.js after a
+// production build. Only then do we hydrate the server-rendered DOM; in dev or
+// without a successful prerender we mount fresh to avoid hydration mismatches.
+const isPrerendered =
+  typeof window !== "undefined" && window.__PRERENDERED__ === true;
+
+if (isPrerendered) {
+  ReactDOM.hydrateRoot(container, tree);
+} else {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  ReactDOM.createRoot(container).render(tree);
+}
