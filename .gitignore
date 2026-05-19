@@ -25,3 +25,9 @@ yarn-error.log*
 # dev
 src/*.dev.jsx
 src/*.old
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
